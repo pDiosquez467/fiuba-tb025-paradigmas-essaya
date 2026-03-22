@@ -1,0 +1,20 @@
+@startuml
+class ArrayList<T> {
++add(t: T)
++get(i: int): T
+}
+
+class ListaDuplicanteHerencia<T> {
++add(t: T)
++get(i: int): T
+}
+
+class ListaDuplicanteComp<T> {
+-lista: ArrayList<T>
++add(t: T)
++get(i: int): T
+}
+
+ArrayList <|-- ListaDuplicanteHerencia
+ListaDuplicanteComp o-- ArrayList
+@enduml

@@ -1,0 +1,6 @@
+# ¿Qué ventajas y desventajas tiene cada una de las implementaciones?
+*La implementación por herencia permite reutilizar directamente la funcionalidad de ArrayList, por lo que resulta más simple y requiere menos código. Sin embargo, también expone muchos métodos heredados que no forman parte necesariamente del comportamiento deseado de ListaDuplicante, lo que puede generar inconsistencias y un diseño más frágil.
+
+La implementación por composición, en cambio, encapsula una lista interna y expone solo las operaciones necesarias. Esto mejora la encapsulación, reduce el acoplamiento y permite controlar mejor el comportamiento específico de la clase. Como desventaja, requiere escribir más código de delegación.
+
+En este caso, la composición resulta una alternativa de diseño más adecuada, ya que ListaDuplicante no necesariamente debe considerarse un subtipo de ArrayList, sino una clase con comportamiento particular implementado sobre una lista.*
