@@ -1,5 +1,4 @@
-Repositorio personal con la resolución de guías de ejercicios y material de estudio de la materia **Paradigmas de Programación** (TB025 - Cátedra Essaya) de la carrera Ingeniería Informática (UBA).
-
+📘 Repositorio personal con la resolución de guías de ejercicios y material de estudio de la materia **Paradigmas de Programación** (TBO25 - Cátedra Essaya) de la carrera Ingeniería Informática (UBA).
 ---
 
 ## 📌 Objetivo
