@@ -2,54 +2,52 @@ package ejercicio1.repositorio;
 
 import ejercicio1.modelo.Alumno;
 import ejercicio1.modelo.Carrera;
-import ejercicio1.modelo.EstadoCarreraAlumno;
+import ejercicio1.modelo.EstadoInscripcion;
 
 import java.util.*;
 
-public class RepositorioEstadosCarrera {
+public class RepositorioInscripcion {
 
-    private final Map<String, Set<EstadoCarreraAlumno>> db;
+    private final Map<String, Set<EstadoInscripcion>> db;
 
-    public RepositorioEstadosCarrera() {
+    public RepositorioInscripcion() {
         this.db = new HashMap<>();
     }
 
-    public void agregar(EstadoCarreraAlumno estadoCarreraAlumno) {
-        Alumno alumno = estadoCarreraAlumno.getAlumno();
+    public void agregar(EstadoInscripcion estadoInscripcion) {
+        Alumno alumno = estadoInscripcion.getAlumno();
         if (!db.containsKey(alumno.padron())) {
             db.put(alumno.padron(), new HashSet<>());
         }
-        validarNoDuplicados(estadoCarreraAlumno);
-        db.get(alumno.padron()).add(estadoCarreraAlumno);
+        validarNoDuplicados(estadoInscripcion);
+        db.get(alumno.padron()).add(estadoInscripcion);
     }
 
-    public EstadoCarreraAlumno obtener(String padron, Carrera carrera) {
-        validarEstadosCargadosDelAlumno(padron);
-        validarAlumnoInscriptoEnCarrera(padron, carrera);
+    public EstadoInscripcion obtener(String padron, Carrera carrera) {
         return db.get(padron).stream()
                 .filter(estado -> estado.getCarrera().equals(carrera))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("..."));
+                .orElseThrow(() -> new RuntimeException("El alumno no está inscripto en la carrera"));
     }
 
-    public List<EstadoCarreraAlumno> obtener(String padron) {
+    public List<EstadoInscripcion> obtener(String padron) {
         validarEstadosCargadosDelAlumno(padron);
         return List.copyOf(db.get(padron));
     }
 
     public void darDeBaja(String padron, Carrera carrera) {
         validarEstadosCargadosDelAlumno(padron);
-        Set<EstadoCarreraAlumno> estados   = db.get(padron);
-        EstadoCarreraAlumno estadoGuardado =
+        Set<EstadoInscripcion> estados   = db.get(padron);
+        EstadoInscripcion estadoGuardado =
                 estados.stream()
                         .filter(estado -> estado.getCarrera().equals(carrera))
                         .findFirst()
-                        .orElseThrow(RuntimeException::new);
+                        .orElseThrow(() -> new RuntimeException("El alumno no está inscripto en la carrera"));
         estadoGuardado.darDeBaja();
     }
 
     public boolean existeInscripcion(String padron, Carrera carrera) {
-        validarEstadosCargadosDelAlumno(padron);
+        if (!db.containsKey(padron)) return false;
         return db.get(padron).stream()
                 .anyMatch(estado -> estado.getCarrera().equals(carrera));
     }
@@ -66,7 +64,7 @@ public class RepositorioEstadosCarrera {
         }
     }
 
-    private void validarNoDuplicados(EstadoCarreraAlumno estado) {
+    private void validarNoDuplicados(EstadoInscripcion estado) {
         String padron = estado.getAlumno().padron();
         if (db.get(padron).contains(estado)) {
             throw new RuntimeException("El estado de carrera está duplicado");

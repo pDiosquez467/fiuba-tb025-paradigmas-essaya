@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class EstadoCarreraAlumno {
+public class EstadoInscripcion {
 
     private final Alumno alumno;
     private final Carrera carrera;
     private EstadoCarrera estadoCarrera;
     private final Set<Materia> materiasAprobadas;
 
-    public EstadoCarreraAlumno(Alumno alumno, Carrera carrera) {
+    public EstadoInscripcion(Alumno alumno, Carrera carrera) {
         this.alumno = alumno;
         this.carrera = carrera;
         this.materiasAprobadas = new HashSet<>();
@@ -50,7 +50,7 @@ public class EstadoCarreraAlumno {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof EstadoCarreraAlumno that)) return false;
+        if (!(o instanceof EstadoInscripcion that)) return false;
         return Objects.equals(alumno, that.alumno) && Objects.equals(carrera, that.carrera);
     }
 
