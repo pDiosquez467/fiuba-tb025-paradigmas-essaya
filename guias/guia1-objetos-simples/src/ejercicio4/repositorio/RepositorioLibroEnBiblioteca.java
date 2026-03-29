@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class RepositorioLibroEnBiblioteca {
+public class RepositorioLibroEnBiblioteca implements Repositorio<LibroEnBiblioteca> {
 
     private final Map<String, LibroEnBiblioteca> db;
 
@@ -46,7 +46,9 @@ public class RepositorioLibroEnBiblioteca {
                 -> libroEnBiblioteca
                 .getLibro()
                 .titulo()
-                .equalsIgnoreCase(titulo));
+                .toLowerCase()
+                .contains(titulo.toLowerCase())
+        );
     }
 
     public List<LibroEnBiblioteca> buscarPorAutor(Autor autor) {
@@ -54,7 +56,7 @@ public class RepositorioLibroEnBiblioteca {
                 -> libroEnBiblioteca.getLibro().autores().contains(autor));
     }
 
-    public List<LibroEnBiblioteca> buscarPorFechaPrestamo(LocalDate fechaDePublicacion) {
+    public List<LibroEnBiblioteca> buscarPorFechaDePublicacion(LocalDate fechaDePublicacion) {
         return buscarPor(libroEnBiblioteca
                 -> libroEnBiblioteca.getLibro().fechaDePublicacion().equals(fechaDePublicacion));
     }

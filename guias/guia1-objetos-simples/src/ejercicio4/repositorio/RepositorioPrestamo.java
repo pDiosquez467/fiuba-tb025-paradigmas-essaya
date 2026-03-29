@@ -72,7 +72,19 @@ public class RepositorioPrestamo {
     public boolean tieneElUsuarioPrestamosActivos(String id) {
         return obtenerPrestamosDelUsuario(id).stream()
                 .anyMatch(Prestamo::estaActivo);
+    }
 
+    public boolean tieneElUsuarioPrestamoActivoDeEsteLibro(String id, String isbn) {
+        if (!db.containsKey(id)) return false;
+        return db.get(id).stream()
+                .anyMatch(prestamo
+                        -> prestamo.getLibro().isbn().equalsIgnoreCase(isbn)
+                        && prestamo.estaActivo());
+    }
+
+    public boolean tieneElLibroPrestamosActivos(String isbn) {
+        return obtenerPrestamosDeLibro(isbn).stream()
+                .anyMatch(Prestamo::estaActivo);
     }
 
     public List<Prestamo> obtenerPrestamosDelUsuario(String id) {

@@ -3,10 +3,11 @@ package ejercicio4.repositorio;
 import ejercicio4.modelo.Usuario;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class RepositorioUsuario {
+public class RepositorioUsuario implements Repositorio<Usuario> {
 
     private final Map<String, Usuario> db;
 
@@ -25,8 +26,11 @@ public class RepositorioUsuario {
     }
 
     public Optional<Usuario> obtener(String id) {
-        Usuario us = db.get(id);
-        return (us == null) ? Optional.empty() : Optional.of(us);
+        return Optional.ofNullable(db.get(id));
+    }
+
+    public List<Usuario> obtenerTodos() {
+        return db.values().stream().toList();
     }
 
     public boolean existe(String id) {
