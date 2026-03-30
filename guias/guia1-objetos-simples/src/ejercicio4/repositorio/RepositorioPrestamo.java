@@ -74,6 +74,11 @@ public class RepositorioPrestamo {
                 .anyMatch(Prestamo::estaActivo);
     }
 
+    public boolean tieneElUsuarioPrestamosConRetraso(String id, LocalDate fecha) {
+        return obtenerPrestamosDelUsuario(id).stream()
+                .anyMatch(prestamo -> prestamo.estaRetrasado(fecha));
+    }
+
     public boolean tieneElUsuarioPrestamoActivoDeEsteLibro(String id, String isbn) {
         if (!db.containsKey(id)) return false;
         return db.get(id).stream()

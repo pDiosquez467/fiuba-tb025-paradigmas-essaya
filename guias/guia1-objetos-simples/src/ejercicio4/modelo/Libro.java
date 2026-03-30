@@ -1,10 +1,10 @@
 package ejercicio4.modelo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-public record Libro(String isbn, String titulo, LocalDateTime fechaDePublicacion, List<Autor> autores) {
+public record Libro(String isbn, String titulo, LocalDate fechaDePublicacion, List<Autor> autores) {
 
     @Override
     public boolean equals(Object o) {

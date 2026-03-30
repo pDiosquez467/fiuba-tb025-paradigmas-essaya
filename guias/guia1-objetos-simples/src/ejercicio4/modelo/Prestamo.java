@@ -38,15 +38,25 @@ public class Prestamo {
         extenderPrestamo();
     }
 
+    public boolean estaActivo() {
+        return estadoDelPrestamo == EstadoDelPrestamo.ACTIVO;
+    }
+
     public boolean estaRetrasado(LocalDate fechaActual) {
         return estadoDelPrestamo == EstadoDelPrestamo.ACTIVO
                 && fechaActual.isAfter(fechaVencimiento);
     }
 
+    public boolean estaFinalizado() {
+        return estadoDelPrestamo == EstadoDelPrestamo.FINALIZADO;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Prestamo prestamo)) return false;
-        return Objects.equals(usuario, prestamo.usuario) && Objects.equals(libro, prestamo.libro) && Objects.equals(fechaPrestamo, prestamo.fechaPrestamo);
+        return Objects.equals(usuario, prestamo.usuario)
+                && Objects.equals(libro, prestamo.libro)
+                && Objects.equals(fechaPrestamo, prestamo.fechaPrestamo);
     }
 
     @Override

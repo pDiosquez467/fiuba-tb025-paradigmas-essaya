@@ -79,6 +79,14 @@ public class ServicioDePrestamos {
         return repositorioPrestamo.obtenerPrestamosDeLibro(isbn);
     }
 
+    public boolean tieneElUsuarioPrestamosActivos(String id) {
+        return repositorioPrestamo.tieneElUsuarioPrestamosActivos(id);
+    }
+
+    public boolean tieneElUsuarioPrestamosConRetraso(String id, LocalDate fecha) {
+        return repositorioPrestamo.tieneElUsuarioPrestamosConRetraso(id, fecha);
+    }
+
     private Usuario obtenerUsuarioExistente(String usuarioId) {
         return obtener(usuarioId, repositorioUsuario, "El usuario no existe en la BD");
     }
