@@ -31,6 +31,10 @@ public class Cuenta {
         return saldo;
     }
 
+    public boolean tieneSaldoSuficiente(double monto) {
+        return saldo >= monto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Cuenta cuenta)) return false;

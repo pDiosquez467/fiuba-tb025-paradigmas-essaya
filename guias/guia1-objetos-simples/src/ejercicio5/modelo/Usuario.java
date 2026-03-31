@@ -1,5 +1,7 @@
 package ejercicio5.modelo;
 
+import ejercicio5.modelo.ahorro.DepositoDeCajaDeAhorro;
+
 import java.util.*;
 
 public class Usuario {
@@ -9,6 +11,7 @@ public class Usuario {
     private final String direccion;
     private final String telefono;
     private final Map<String, Cuenta> cuentas;
+    private final Set<DepositoDeCajaDeAhorro> depositos;
 
     public Usuario(
             String id,
@@ -21,6 +24,7 @@ public class Usuario {
         this.direccion = direccion;
         this.telefono  = telefono;
         this.cuentas   = new HashMap<>();
+        this.depositos = new HashSet<>();
     }
 
     @Override
@@ -39,9 +43,22 @@ public class Usuario {
         cuentas.remove(cuentaId);
     }
 
+    public void agregarDepositoDeCajaDeAhorro(DepositoDeCajaDeAhorro depositoDeCajaDeAhorro) {
+
+        depositos.add(depositoDeCajaDeAhorro);
+    }
+
+    public void quitarDepositoDeCajaDeAhorro(DepositoDeCajaDeAhorro depositoDeCajaDeAhorro) {
+        depositos.remove(depositoDeCajaDeAhorro);
+    }
+
     public Cuenta obtenerCuenta(String cuentaId) {
         validarExistenciaDeCuenta(cuentaId);
         return cuentas.get(cuentaId);
+    }
+
+    public boolean esTitularDe(Cuenta cuenta) {
+        return (cuenta != null) && cuentas.containsKey(cuenta.getId());
     }
 
     @Override
@@ -67,6 +84,10 @@ public class Usuario {
 
     public List<Cuenta> getCuentas() {
         return cuentas.values().stream().toList();
+    }
+
+    public List<DepositoDeCajaDeAhorro> getDepositos() {
+        return depositos.stream().toList();
     }
 
     private void validarExistenciaDeCuenta(String cuentaId) {
