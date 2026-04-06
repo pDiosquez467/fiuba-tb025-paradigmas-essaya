@@ -7,4 +7,10 @@ public class Validaciones {
             throw new RuntimeException(mensaje);
         }
     }
+
+    public static void validarNotBlank(String string, String mensaje) {
+        if ((string == null) || (string.isBlank())) {
+            throw new RuntimeException(mensaje);
+        }
+    }
 }

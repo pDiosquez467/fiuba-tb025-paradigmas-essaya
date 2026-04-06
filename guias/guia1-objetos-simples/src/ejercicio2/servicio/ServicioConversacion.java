@@ -3,6 +3,8 @@ package ejercicio2.servicio;
 import ejercicio2.modelo.Conversacion;
 import ejercicio2.modelo.Mensaje;
 import ejercicio2.modelo.Usuario;
+import ejercicio2.modelo.fabrica.FabricaConversacion;
+import ejercicio2.modelo.fabrica.FabricaMensaje;
 import ejercicio2.repositorio.Repositorio;
 import ejercicio2.repositorio.impl.RepositorioConversacion;
 import ejercicio2.repositorio.impl.RepositorioUsuario;
@@ -35,24 +37,24 @@ public class ServicioConversacion {
         validarContenido(contenido);
         validarFecha(fecha);
 
-        Usuario remitente    = obtenerUsuarioExistente(idRemitente);
+        Usuario remitente = obtenerUsuarioExistente(idRemitente);
         Usuario destinatario = obtenerUsuarioExistente(idDestinatario);
         Conversacion conversacion = obtenerORegistrarConversacion(remitente, destinatario);
 
-        Mensaje nuevo = new Mensaje(
+        Mensaje nuevo = FabricaMensaje.crear(
                 UUID.randomUUID().toString(),
                 remitente,
                 destinatario,
                 fecha,
                 contenido
         );
-
         conversacion.agregarMensaje(nuevo);
         return nuevo;
     }
 
     public List<Mensaje> obtenerHistorialDeMensajesEntre(String idUsuarioA, String idUsuarioB) {
         validarUsuariosDistintos(idUsuarioA, idUsuarioB);
+
         Usuario usuarioA = obtenerUsuarioExistente(idUsuarioA);
         Usuario usuarioB = obtenerUsuarioExistente(idUsuarioB);
 
@@ -61,7 +63,9 @@ public class ServicioConversacion {
     }
 
     public List<Conversacion> obtenerConversacionesDelUsuario(String idUsuario) {
-        throw new UnsupportedOperationException("Pendiente de implementación");
+        return repositorioConversacion.obtenerConversacionesDelUsuario(
+                obtenerUsuarioExistente(idUsuario)
+        );
     }
 
     private Usuario obtenerUsuarioExistente(String id) {
@@ -86,7 +90,7 @@ public class ServicioConversacion {
             return conversacion.get();
         }
 
-        Conversacion nueva = new Conversacion(
+        Conversacion nueva = FabricaConversacion.crear(
                 UUID.randomUUID().toString(),
                 usuarioA,
                 usuarioB
@@ -111,7 +115,7 @@ public class ServicioConversacion {
 
     private void validarContenido(String contenido) {
         if (contenido == null || contenido.isBlank()) {
-            throw new RuntimeException("El contenido del mensaje no puede ser nulo ni vacío.");
+            throw new RuntimeException("El contenido del mensaje no puede ser nulo ni estar vacío.");
         }
     }
 
