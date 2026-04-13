@@ -23,6 +23,8 @@ public abstract class Usuario {
         this.credencial = credencial;
     }
 
+    public abstract boolean puedeCerrarSistema();
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Usuario usuario)) return false;

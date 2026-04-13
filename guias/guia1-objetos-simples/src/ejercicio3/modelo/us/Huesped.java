@@ -17,4 +17,9 @@ public class Huesped extends Usuario {
     public int getNumeroHabitacion() {
         return numeroHabitacion;
     }
+
+    @Override
+    public boolean puedeCerrarSistema() {
+        return false;
+    }
 }

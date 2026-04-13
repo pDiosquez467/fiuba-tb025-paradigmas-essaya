@@ -16,4 +16,9 @@ public class Personal extends Usuario {
     public Cargo getCargo() {
         return cargo;
     }
+
+    @Override
+    public boolean puedeCerrarSistema() {
+        return true;
+    }
 }
