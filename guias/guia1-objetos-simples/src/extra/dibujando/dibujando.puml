@@ -1,0 +1,73 @@
+@startuml
+
+interface FiguraGeometrica {
+  +calcularSuperficie() : Integer
+}
+
+interface Coloreable {
+  +colorearse(color : Color) : void
+}
+
+interface Guardable {
+  +esUnPincel() : boolean
+}
+
+enum Color {
+  ROJO
+  VERDE
+  AZUL
+  AMARILLO
+  VIOLETA
+  NEGRO
+  BLANCO
+}
+
+class Circulo {
+  -radio : Integer
+  -color : Color
+  +Circulo(radio : Integer)
+  +Circulo(radio : Integer, color : Color)
+  +getRadio() : Integer
+  +getColor() : Color
+  +calcularSuperficie() : Integer
+  +colorearse(color : Color) : void
+  +estaColoreado() : boolean
+}
+
+class Pincel {
+  -colorActual : Color
+  +Pincel()
+  +seleccionarColor(color : Color) : void
+  +pintar(coloreable : Coloreable) : void
+  +estaCargado() : boolean
+  +esUnPincel() : boolean
+}
+
+class Compas {
+  +Compas()
+  +dibujarCirculoConRadio(radio : Integer) : Circulo
+  +esUnPincel() : boolean
+}
+
+class Cartuchera {
+  -items : List<Guardable>
+  +Cartuchera()
+  +guardar(item : Guardable) : void
+  +guardar(nuevos : Collection<Guardable>) : void
+  +getPinceles() : List<Pincel>
+  +getItems() : List<Guardable>
+}
+
+Circulo ..|> FiguraGeometrica
+Circulo ..|> Coloreable
+Pincel ..|> Guardable
+Compas ..|> Guardable
+
+Circulo --> Color
+Pincel --> Color
+Pincel --> Coloreable
+Compas --> Circulo
+Cartuchera --> Guardable
+Cartuchera --> Pincel
+
+@enduml
