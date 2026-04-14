@@ -11,17 +11,25 @@ public class ServicioAutenticacion {
     private final RepositorioUsuario repositorioUsuario;
     private final SesionActual sesionActual;
 
-    public ServicioAutenticacion(
+    public static ServicioAutenticacion crearServicio(
+            RepositorioUsuario repositorioUsuario,
+            SesionActual sesionActual) {
+        return new ServicioAutenticacion(
+                repositorioUsuario,
+                sesionActual
+        );
+    }
+
+    private ServicioAutenticacion(
             RepositorioUsuario repositorioUsuario,
             SesionActual sesionActual) {
         this.repositorioUsuario = repositorioUsuario;
-        this.sesionActual = sesionActual;
+        this.sesionActual       = sesionActual;
     }
 
     public Usuario abrirSesion(String idUsuario, String credencial) {
         Validaciones.validarNotBlank(idUsuario, "El identificador del usuario es obligatorio.");
         Validaciones.validarNotBlank(credencial, "La credencial de acceso es obligatoria.");
-
         Usuario usuario = autenticar(idUsuario, credencial);
         sesionActual.abrir(usuario);
         return usuario;
@@ -36,6 +44,7 @@ public class ServicioAutenticacion {
     }
 
     public Usuario obtenerUsuarioAutenticadoActual() {
+        validarSesionAbierta();
         return sesionActual.obtenerUsuarioActual();
     }
 
@@ -44,7 +53,6 @@ public class ServicioAutenticacion {
         Usuario usuarioAutenticado = obtenerUsuarioAutenticadoActual();
         validarPermisosDelUsuario(usuarioAutenticado);
         cerrarSesion();
-        // System.exit(0);
     }
 
     private Usuario obtenerUsuarioExistente(String idUsuario) {

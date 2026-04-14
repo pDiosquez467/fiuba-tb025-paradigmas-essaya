@@ -7,7 +7,11 @@ public class SesionActual {
     private Usuario usuario;
     private EstadoSesionActual estado;
 
-    public SesionActual() {
+    public static SesionActual crearSesion() {
+        return new SesionActual();
+    }
+
+    private SesionActual() {
         this.usuario = null;
         this.estado  = EstadoSesionActual.CERRADA;
     }
