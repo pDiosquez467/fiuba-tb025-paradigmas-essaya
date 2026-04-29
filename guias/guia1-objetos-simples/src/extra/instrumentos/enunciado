@@ -1,0 +1,5 @@
+Se quiere modelar distintos instrumentos: todos tienen el material del que están
+hechos y todos se pueden tocar. Por un lado tenemos instrumentos de cuerda (como
+la guitarra o el violín) que tienen una cantidad de cuerdas y se pueden afinar.
+Diseñar una solución que represente a los instrumentos y que sea escalable para más
+tipos de instrumentos, como los de percusión.
